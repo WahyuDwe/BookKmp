@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.dwe.bookkmp.navigation.Details
 import com.dwe.bookkmp.navigation.Home
 import com.dwe.bookkmp.navigation.Manage
+import com.dwe.bookkmp.presentation.screen.home.HomeScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -23,7 +24,12 @@ fun App() {
                 navController = navController,
                 startDestination = Home,
             ) {
-                composable<Home> { }
+                composable<Home> {
+                    HomeScreen(
+                        onBookSelect = {},
+                        onCreateClick = {}
+                    )
+                }
 
                 composable<Details> { }
 
