@@ -1,25 +1,34 @@
 package com.dwe.bookkmp
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.dwe.bookkmp.navigation.Details
+import com.dwe.bookkmp.navigation.Home
+import com.dwe.bookkmp.navigation.Manage
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import bookkmp.composeapp.generated.resources.Res
-import bookkmp.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
+        Surface {
+            val navController: NavHostController = rememberNavController()
 
+            NavHost(
+                navController = navController,
+                startDestination = Home,
+            ) {
+                composable<Home> { }
+
+                composable<Details> { }
+
+                composable<Manage> { }
+            }
+        }
     }
 }

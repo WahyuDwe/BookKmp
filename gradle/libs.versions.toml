@@ -15,10 +15,10 @@ compose-plugin = "1.7.0"
 junit = "4.13.2"
 kotlin = "2.0.21"
 
-navigation = "2.7.0-alpha07"
+navigation = "2.8.0-alpha10"
 landscapist = "2.4.0"
 room = "2.7.0-alpha10"
-ksp = "2.0.20-1.0.25"
+ksp = "2.0.21-1.0.25"
 sqlite = "2.5.0-alpha10"
 koin = "4.0.0"
 
@@ -54,3 +54,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
