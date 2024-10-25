@@ -1,7 +1,6 @@
 package com.dwe.bookkmp.presentation.screen.manage
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dwe.bookkmp.domain.Book
@@ -14,9 +13,7 @@ const val IMAGE_URL =
 
 class ManageViewModel(
     private val db: BookDatabase,
-//    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    //    private val selectedBookId = savedStateHandle.get<Int>()
     var imageField = mutableStateOf(IMAGE_URL)
     var titleField = mutableStateOf("")
     var summaryField = mutableStateOf("")

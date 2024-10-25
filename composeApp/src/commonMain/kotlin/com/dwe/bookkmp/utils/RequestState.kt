@@ -54,11 +54,11 @@ fun <T> RequestState<T>.DisPlayResult(
         ) {
             when (state) {
                 is RequestState.Idle -> {
-                    onIdle?.invoke()
+                    onIdle.invoke()
                 }
 
                 is RequestState.Loading -> {
-                    onLoading?.invoke()
+                    onLoading.invoke()
                 }
 
                 is RequestState.Success -> {
@@ -66,7 +66,7 @@ fun <T> RequestState<T>.DisPlayResult(
                 }
 
                 is RequestState.Error -> {
-                    onError?.invoke(state.getErrorMessage())
+                    onError.invoke(state.getErrorMessage())
                 }
             }
         }

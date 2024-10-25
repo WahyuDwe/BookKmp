@@ -2,6 +2,7 @@ package com.dwe.bookkmp.di
 
 import com.dwe.bookkmp.presentation.screen.home.HomeViewModel
 import com.dwe.bookkmp.presentation.screen.manage.ManageViewModel
+import com.dwe.bookkmp.presentation.screen.details.DetailsViewModel
 import com.dwe.bookkmp.room.getRoomDatabase
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -17,6 +18,7 @@ val sharedModule = module {
 
     viewModelOf(::HomeViewModel)
     viewModelOf(::ManageViewModel)
+    viewModelOf(::DetailsViewModel)
 }
 
 fun initializeKoin(

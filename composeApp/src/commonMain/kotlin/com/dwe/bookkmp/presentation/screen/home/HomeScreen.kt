@@ -34,7 +34,6 @@ import org.koin.compose.viewmodel.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
     onBookSelect: (Int) -> Unit,
     onCreateClick: () -> Unit
 ) {
@@ -99,7 +98,7 @@ fun HomeScreen(
                         items(items = data, key = { it.id }) {
                             BookView(
                                 book = it,
-                                onClick = {  }
+                                onClick = { onBookSelect(it.id) }
                             )
                         }
                     }
