@@ -11,6 +11,7 @@ import com.dwe.bookkmp.navigation.Details
 import com.dwe.bookkmp.navigation.Home
 import com.dwe.bookkmp.navigation.Manage
 import com.dwe.bookkmp.presentation.screen.home.HomeScreen
+import com.dwe.bookkmp.presentation.screen.manage.ManageScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -27,13 +28,21 @@ fun App() {
                 composable<Home> {
                     HomeScreen(
                         onBookSelect = {},
-                        onCreateClick = {}
+                        onCreateClick = {
+                            navController.navigate(Manage)
+                        }
                     )
                 }
 
                 composable<Details> { }
 
-                composable<Manage> { }
+                composable<Manage> {
+                    ManageScreen(
+                        onBackClick = {
+                            navController.popBackStack()
+                        }
+                    )
+                }
             }
         }
     }

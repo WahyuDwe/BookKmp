@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dwe.bookkmp.presentation.components.BookView
 import com.dwe.bookkmp.presentation.components.ErrorView
 import com.dwe.bookkmp.presentation.components.LoadingView
 import com.dwe.bookkmp.utils.DisPlayResult
@@ -95,8 +96,11 @@ fun HomeScreen(
                             ),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
-                        items(items = data, key = {it.id}) {
-
+                        items(items = data, key = { it.id }) {
+                            BookView(
+                                book = it,
+                                onClick = {  }
+                            )
                         }
                     }
                 } else {

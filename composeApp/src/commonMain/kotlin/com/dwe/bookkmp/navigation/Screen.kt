@@ -10,4 +10,4 @@ object Home
 data class Details(val bookId: Int)
 
 @Serializable
-data class Manage(val bookId: Int = -1)
+object Manage
