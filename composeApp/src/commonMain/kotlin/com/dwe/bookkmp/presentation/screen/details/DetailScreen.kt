@@ -1,6 +1,5 @@
 package com.dwe.bookkmp.presentation.screen.details
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -28,7 +27,6 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,42 +35,42 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.dwe.bookkmp.data.domain.Book
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
 import org.koin.compose.viewmodel.koinViewModel
 
-@Composable
-fun DetailsScreen(
-    id: Int,
-    onEditClick: () -> Unit,
-    onBackClick: () -> Unit
-) {
-    val viewModel = koinViewModel<DetailsViewModel>()
-    val isFavorite by viewModel.isFavorite
-    val book by viewModel.getBookById(id).collectAsState(initial = null)
-
-    AnimatedContent(book != null) { bookAvailable ->
-        if (bookAvailable) {
-            BookDetails(
-                book = book,
-                isFavorite = isFavorite,
-                onEditClick = onEditClick,
-                onBackClick = onBackClick,
-            )
-        }
-    }
-
-}
+//@Composable
+//fun DetailsScreen(
+//    id: Int,
+//    onEditClick: () -> Unit,
+//    onBackClick: () -> Unit
+//) {
+//    val viewModel = koinViewModel<DetailsViewModel>()
+//    val isFavorite by viewModel.isFavorite
+//    val book by viewModel.getBookById(id).collectAsState(initial = null)
+//
+//    AnimatedContent(book != null) { bookAvailable ->
+//        if (bookAvailable) {
+//            BookDetails(
+//                book = book,
+//                isFavorite = isFavorite,
+//                onEditClick = onEditClick,
+//                onBackClick = onBackClick,
+//            )
+//        }
+//    }
+//
+//}
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun BookDetails(
-    book: Book?,
-    isFavorite: Boolean,
+fun DetailsScreen(
     onBackClick: () -> Unit,
     onEditClick: () -> Unit
 ) {
+    val viewModel = koinViewModel<DetailsViewModel>()
+    val book by viewModel.selectedBook
+    val isFavorite by viewModel.isFavorite
     Scaffold(
         topBar = {
             TopAppBar(
@@ -93,7 +91,7 @@ fun BookDetails(
                         )
                     }
                     IconButton(
-                        onClick = { }
+                        onClick = { viewModel.setFavoriteBook() }
                     ) {
                         Icon(
                             modifier = Modifier
@@ -104,6 +102,7 @@ fun BookDetails(
                     }
                     IconButton(
                         onClick = {
+                            viewModel.deleteBook()
                             onBackClick()
                         }
                     ) {

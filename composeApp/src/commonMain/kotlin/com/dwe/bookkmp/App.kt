@@ -40,7 +40,6 @@ fun App() {
 
                 composable<Details> { backStackEntry ->
                     DetailsScreen(
-                        id = backStackEntry.toRoute<Details>().bookId,
                         onEditClick = {
                             navController.navigate(Manage(backStackEntry.toRoute<Details>().bookId))
                         },
