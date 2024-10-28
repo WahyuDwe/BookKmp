@@ -1,11 +1,11 @@
-package com.dwe.bookkmp.room
+package com.dwe.bookkmp.data.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.dwe.bookkmp.domain.Book
+import com.dwe.bookkmp.data.domain.Book
 import kotlinx.coroutines.flow.Flow
 
 @Dao

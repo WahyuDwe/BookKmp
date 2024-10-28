@@ -28,6 +28,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ManageScreen(
+    id: Int,
     onBackClick: () -> Unit
 ) {
     val viewModel = koinViewModel<ManageViewModel>()
@@ -41,7 +42,9 @@ fun ManageScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Create") },
+                title = {
+                    Text(text = if (id == -1) "Create" else "Update")
+                },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -52,10 +55,17 @@ fun ManageScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-                        viewModel.insertBook(
-                            onSuccess = { onBackClick() },
-                            onError = { println(it) }
-                        )
+                        if (id == -1) {
+                            viewModel.insertBook(
+                                onSuccess = { onBackClick() },
+                                onError = { println(it) }
+                            )
+                        } else {
+                            viewModel.updateBook(
+                                onSuccess = onBackClick,
+                                onError = { println(it) }
+                            )
+                        }
                     }) {
                         Icon(
                             imageVector = Icons.Default.Add,

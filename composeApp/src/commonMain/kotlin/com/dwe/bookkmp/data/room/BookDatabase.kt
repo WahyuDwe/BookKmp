@@ -1,4 +1,4 @@
-package com.dwe.bookkmp.room
+package com.dwe.bookkmp.data.room
 
 import androidx.room.ConstructedBy
 import androidx.room.Database
@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.dwe.bookkmp.domain.Book
+import com.dwe.bookkmp.data.domain.Book
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json

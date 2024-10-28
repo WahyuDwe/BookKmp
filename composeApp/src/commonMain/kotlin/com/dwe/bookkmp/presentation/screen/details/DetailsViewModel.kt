@@ -2,8 +2,8 @@ package com.dwe.bookkmp.presentation.screen.details
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.dwe.bookkmp.domain.Book
-import com.dwe.bookkmp.room.BookDatabase
+import com.dwe.bookkmp.data.domain.Book
+import com.dwe.bookkmp.data.room.BookDatabase
 import kotlinx.coroutines.flow.Flow
 
 class DetailsViewModel(

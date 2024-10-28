@@ -1,4 +1,4 @@
-package com.dwe.bookkmp.room
+package com.dwe.bookkmp.data.room
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver

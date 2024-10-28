@@ -14,6 +14,7 @@ androidx-test-junit = "1.2.1"
 compose-plugin = "1.7.0"
 junit = "4.13.2"
 kotlin = "2.0.21"
+serialization = "1.7.3"
 
 navigation = "2.8.0-alpha10"
 landscapist = "2.4.0"
@@ -45,6 +46,7 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

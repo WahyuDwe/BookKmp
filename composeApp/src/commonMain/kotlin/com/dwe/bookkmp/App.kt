@@ -33,7 +33,7 @@ fun App() {
                             navController.navigate(Details(bookId))
                         },
                         onCreateClick = {
-                            navController.navigate(Manage)
+                            navController.navigate(Manage())
                         }
                     )
                 }
@@ -41,15 +41,18 @@ fun App() {
                 composable<Details> { backStackEntry ->
                     DetailsScreen(
                         id = backStackEntry.toRoute<Details>().bookId,
-                        onEditClick = { },
+                        onEditClick = {
+                            navController.navigate(Manage(backStackEntry.toRoute<Details>().bookId))
+                        },
                         onBackClick = {
                             navController.popBackStack()
                         }
                     )
                 }
 
-                composable<Manage> {
+                composable<Manage> { backStackEntry ->
                     ManageScreen(
+                        id = backStackEntry.toRoute<Manage>().bookId,
                         onBackClick = {
                             navController.popBackStack()
                         }

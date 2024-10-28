@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 import androidx.lifecycle.viewModelScope
-import com.dwe.bookkmp.domain.Book
-import com.dwe.bookkmp.room.BookDatabase
+import com.dwe.bookkmp.data.domain.Book
+import com.dwe.bookkmp.data.room.BookDatabase
 import com.dwe.bookkmp.utils.RequestState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

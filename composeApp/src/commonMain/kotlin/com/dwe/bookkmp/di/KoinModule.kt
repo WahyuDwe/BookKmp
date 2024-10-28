@@ -3,7 +3,7 @@ package com.dwe.bookkmp.di
 import com.dwe.bookkmp.presentation.screen.home.HomeViewModel
 import com.dwe.bookkmp.presentation.screen.manage.ManageViewModel
 import com.dwe.bookkmp.presentation.screen.details.DetailsViewModel
-import com.dwe.bookkmp.room.getRoomDatabase
+import com.dwe.bookkmp.data.room.getRoomDatabase
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module

@@ -1,4 +1,4 @@
-package com.dwe.bookkmp.domain
+package com.dwe.bookkmp.data.domain
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

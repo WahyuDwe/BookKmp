@@ -2,7 +2,7 @@ package com.dwe.bookkmp.database
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dwe.bookkmp.room.BookDatabase
+import com.dwe.bookkmp.data.room.BookDatabase
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
