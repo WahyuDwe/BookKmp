@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -31,36 +30,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
 import org.koin.compose.viewmodel.koinViewModel
-
-//@Composable
-//fun DetailsScreen(
-//    id: Int,
-//    onEditClick: () -> Unit,
-//    onBackClick: () -> Unit
-//) {
-//    val viewModel = koinViewModel<DetailsViewModel>()
-//    val isFavorite by viewModel.isFavorite
-//    val book by viewModel.getBookById(id).collectAsState(initial = null)
-//
-//    AnimatedContent(book != null) { bookAvailable ->
-//        if (bookAvailable) {
-//            BookDetails(
-//                book = book,
-//                isFavorite = isFavorite,
-//                onEditClick = onEditClick,
-//                onBackClick = onBackClick,
-//            )
-//        }
-//    }
-//
-//}
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -118,52 +93,65 @@ fun DetailsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(all = 12.dp)
+                .padding(top = 12.dp)
                 .padding(
                     top = padding.calculateTopPadding(),
-                    bottom = padding.calculateBottomPadding()
                 )
                 .verticalScroll(rememberScrollState())
         ) {
             Box(
                 modifier = Modifier
-                    .height(300.dp)
+                    .height(500.dp)
                     .fillMaxWidth()
             ) {
                 CoilImage(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(size = 12.dp))
+                        .padding(
+                            start = 12.dp,
+                            end = 12.dp,
+                            top = 12.dp,
+                            bottom = 12.dp,
+                        )
                         .fillMaxWidth(),
                     imageModel = { book?.imageUrl },
                     imageOptions = ImageOptions(
-                        contentScale = ContentScale.Crop,
+                        contentScale = ContentScale.Fit,
                         alignment = Alignment.Center
                     )
+
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                modifier = Modifier.alpha(0.5f),
+                modifier = Modifier
+                    .alpha(0.5f)
+                    .padding(horizontal = 12.dp),
                 text = book?.category ?: "",
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
+                modifier = Modifier.padding(horizontal = 12.dp),
                 text = book?.title ?: "",
                 fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 fontWeight = FontWeight.Medium
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
+                modifier = Modifier.padding(horizontal = 12.dp),
                 text = book?.summary ?: ""
             )
             Spacer(modifier = Modifier.height(24.dp))
             Text(
-                modifier = Modifier.alpha(0.5f),
+                modifier = Modifier
+                    .alpha(0.5f)
+                    .padding(horizontal = 12.dp),
                 text = book?.author ?: "",
             )
             Spacer(modifier = Modifier.height(12.dp))
             FlowRow(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 12.dp, end = 12.dp, bottom = 24.dp),
             ) {
                 book?.tags?.forEach { tag ->
                     SuggestionChip(

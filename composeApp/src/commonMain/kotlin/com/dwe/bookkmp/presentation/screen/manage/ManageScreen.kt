@@ -10,7 +10,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -79,11 +78,12 @@ fun ManageScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(top = padding.calculateTopPadding())
                 .padding(
-                    top = padding.calculateTopPadding(),
-                    bottom = padding.calculateBottomPadding(),
+                    start = 12.dp,
+                    end = 12.dp,
+                    top = 12.dp,
                 )
-                .padding(all = 12.dp)
                 .verticalScroll(rememberScrollState())
         ) {
             TextField(
@@ -127,6 +127,7 @@ fun ManageScreen(
                 onValueChange = { authorField = it },
                 placeholder = { Text("Author") }
             )
+            Spacer(modifier = Modifier.padding(24.dp))
         }
     }
 }
