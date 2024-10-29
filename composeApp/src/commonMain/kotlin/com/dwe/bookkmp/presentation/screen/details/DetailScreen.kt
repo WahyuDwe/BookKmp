@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Star
@@ -72,9 +73,10 @@ fun DetailsScreen(
                         onClick = { viewModel.setFavoriteBook() }
                     ) {
                         Icon(
-                            modifier = Modifier
-                                .alpha(if (isFavorite) 1f else 0.38f),
-                            imageVector = Icons.Rounded.Star,
+                            imageVector = if (isFavorite)
+                                Icons.Rounded.Star
+                            else
+                                Icons.Outlined.StarOutline,
                             contentDescription = "Star icon"
                         )
                     }
