@@ -5,18 +5,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -53,7 +56,7 @@ fun DetailsScreen(
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                             contentDescription = "Back arrow icon"
                         )
                     }
@@ -61,7 +64,7 @@ fun DetailsScreen(
                 actions = {
                     IconButton(onClick = onEditClick) {
                         Icon(
-                            imageVector = Icons.Default.Edit,
+                            imageVector = Icons.Rounded.Edit,
                             contentDescription = "Edit icon"
                         )
                     }
@@ -71,7 +74,7 @@ fun DetailsScreen(
                         Icon(
                             modifier = Modifier
                                 .alpha(if (isFavorite) 1f else 0.38f),
-                            imageVector = Icons.Default.Star,
+                            imageVector = Icons.Rounded.Star,
                             contentDescription = "Star icon"
                         )
                     }
@@ -82,7 +85,7 @@ fun DetailsScreen(
                         }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Delete,
+                            imageVector = Icons.Rounded.Delete,
                             contentDescription = "Delete icon"
                         )
                     }
@@ -97,22 +100,18 @@ fun DetailsScreen(
                 .padding(
                     top = padding.calculateTopPadding(),
                 )
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
         ) {
             Box(
                 modifier = Modifier
                     .height(500.dp)
-                    .fillMaxWidth()
+                    .padding(vertical = 12.dp)
+                    .align(Alignment.CenterHorizontally)
             ) {
                 CoilImage(
                     modifier = Modifier
-                        .padding(
-                            start = 12.dp,
-                            end = 12.dp,
-                            top = 12.dp,
-                            bottom = 12.dp,
-                        )
-                        .fillMaxWidth(),
+                        .clip(RoundedCornerShape(size = 12.dp))
+                        .fillMaxHeight(),
                     imageModel = { book?.imageUrl },
                     imageOptions = ImageOptions(
                         contentScale = ContentScale.Fit,
@@ -121,6 +120,7 @@ fun DetailsScreen(
 
                 )
             }
+
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 modifier = Modifier
@@ -151,7 +151,7 @@ fun DetailsScreen(
             FlowRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 12.dp, end = 12.dp, bottom = 24.dp),
+                    .padding(start = 12.dp, end = 12.dp, bottom = 32.dp),
             ) {
                 book?.tags?.forEach { tag ->
                     SuggestionChip(

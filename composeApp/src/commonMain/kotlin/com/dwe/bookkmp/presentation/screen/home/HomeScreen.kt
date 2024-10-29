@@ -1,22 +1,22 @@
 package com.dwe.bookkmp.presentation.screen.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -45,7 +45,7 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = { Text(text = "Book Library") },
                 actions = {
                     IconButton(
@@ -63,7 +63,7 @@ fun HomeScreen(
                             modifier = Modifier.alpha(
                                 if (sortedByFavorite) 1f else 0.38f
                             ),
-                            imageVector = Icons.Default.Star,
+                            imageVector = Icons.Rounded.Star,
                             contentDescription = "Sort by favorite"
                         )
                     }
@@ -75,7 +75,7 @@ fun HomeScreen(
                 onClick = onCreateClick
             ) {
                 Icon(
-                    imageVector = Icons.Default.Add,
+                    imageVector = Icons.Rounded.Add,
                     contentDescription = "Add Icon"
                 )
             }
@@ -88,11 +88,15 @@ fun HomeScreen(
                 if (data.isNotEmpty()) {
                     LazyColumn(
                         modifier = Modifier
-                            .padding(all = 12.dp)
+                            .padding(
+                                start = 12.dp,
+                                end = 12.dp,
+                                top = 12.dp,
+                            )
                             .padding(
                                 top = it.calculateTopPadding(),
-                                bottom = it.calculateBottomPadding()
                             ),
+                        contentPadding = PaddingValues(bottom = 32.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
                         items(items = data, key = { it.id }) {

@@ -1,7 +1,6 @@
 package com.dwe.bookkmp.presentation.components
 
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,56 +35,78 @@ fun BookView(
     book: Book,
     onClick: () -> Unit
 ) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(size = 12.dp))
-        .clickable { onClick() }
+    OutlinedCard(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = onClick,
+        shape = RoundedCornerShape(size = 12.dp)
     ) {
-        Box(modifier = Modifier.size(120.dp)) {
-            CoilImage(
+        Row {
+            Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(size = 12.dp))
-                    .size(120.dp),
-                imageModel = { book.imageUrl },
-                imageOptions = ImageOptions(
-                    contentScale = ContentScale.Crop,
-                    alignment = Alignment.Center
-                )
-            )
-            if (book.isFavorite) {
-                Row(
-                    modifier = Modifier
-                        .padding(all = 6.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Star,
-                        contentDescription = "Star Icon",
-                        tint = Color.Yellow
+                    .size(
+                        height = 180.dp,
+                        width = 120.dp
                     )
+                    .padding(
+                        start = 12.dp,
+                        top = 12.dp,
+                        bottom = 12.dp
+                    )
+                    .align(Alignment.CenterVertically)
+            ) {
+                CoilImage(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(size = 8.dp))
+                        .size(
+                            height = 180.dp,
+                            width = 120.dp
+                        ),
+                    imageModel = { book.imageUrl },
+                    imageOptions = ImageOptions(
+                        contentScale = ContentScale.Crop,
+                        alignment = Alignment.Center
+                    )
+                )
+                if (book.isFavorite) {
+                    Row(
+                        modifier = Modifier
+                            .padding(all = 6.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Star Icon",
+                            tint = Color.Yellow
+                        )
+                    }
                 }
             }
-        }
-        Spacer(modifier = Modifier.width(12.dp))
-        Column(
-            modifier = Modifier.weight(3f).padding(vertical = 6.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.Start
-        ) {
-            Text(
-                text = book.title,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                fontWeight = FontWeight.Medium
-            )
-            Text(
-                text = book.summary,
-                maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize
-            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Column(
+                modifier = Modifier
+                    .weight(3f)
+                    .padding(
+                        vertical = 12.dp,
+                        horizontal = 6.dp
+                    ),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = book.title,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = book.summary,
+                    maxLines = 5,
+                    overflow = TextOverflow.Ellipsis,
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize
+                )
+            }
         }
     }
 }
