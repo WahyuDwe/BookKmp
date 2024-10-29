@@ -4,19 +4,16 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-
 import androidx.lifecycle.viewModelScope
 import com.dwe.bookkmp.data.domain.Book
 import com.dwe.bookkmp.data.room.BookDatabase
 import com.dwe.bookkmp.utils.RequestState
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val db: BookDatabase) : ViewModel() {
     private var _sortedByFavorite = MutableStateFlow(false)
-    val sortedByFavorite: StateFlow<Boolean> = _sortedByFavorite
 
     private var _books: MutableState<RequestState<List<Book>>> =
         mutableStateOf(RequestState.Loading)

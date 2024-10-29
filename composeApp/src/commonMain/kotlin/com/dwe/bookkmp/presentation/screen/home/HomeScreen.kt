@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Star
@@ -28,7 +27,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dwe.bookkmp.presentation.components.BookView
 import com.dwe.bookkmp.presentation.components.ErrorView
 import com.dwe.bookkmp.presentation.components.LoadingView
@@ -47,7 +45,6 @@ fun HomeScreen(
     val listState = rememberLazyListState()
     val viewModel = koinViewModel<HomeViewModel>()
     val books by viewModel.books
-    val sortedByFavorite by viewModel.sortedByFavorite.collectAsStateWithLifecycle()
     var showMenu by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -82,11 +79,7 @@ fun HomeScreen(
                             text = { Text("Sort by favorite") },
                             leadingIcon = {
                                 Icon(
-                                    imageVector =
-                                    if (sortedByFavorite)
-                                        Icons.Rounded.Star
-                                    else
-                                        Icons.Outlined.StarOutline,
+                                    imageVector = Icons.Rounded.Star,
                                     contentDescription = "Sort by favorite"
                                 )
                             }

@@ -29,6 +29,10 @@ interface BookDao {
     fun readAllBooksSortedByFavorite(): Flow<List<Book>>
 
     @Transaction
+    @Query("SELECT * FROM book ORDER BY title ASC")
+    fun readAllBooksSortedByTitle(): Flow<List<Book>>
+
+    @Transaction
     @Query("SELECT * FROM book")
     fun readAllBooks(): Flow<List<Book>>
 
