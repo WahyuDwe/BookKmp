@@ -1,6 +1,9 @@
 package com.dwe.bookkmp.presentation.components
 
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,10 +33,13 @@ import com.dwe.bookkmp.data.domain.Book
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun BookView(
     book: Book,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
 ) {
     OutlinedCard(
         modifier = Modifier.fillMaxWidth(),
@@ -41,44 +47,50 @@ fun BookView(
         shape = RoundedCornerShape(size = 12.dp)
     ) {
         Row {
-            Box(
-                modifier = Modifier
-                    .size(
-                        height = 180.dp,
-                        width = 120.dp
-                    )
-                    .padding(
-                        start = 12.dp,
-                        top = 12.dp,
-                        bottom = 12.dp
-                    )
-                    .align(Alignment.CenterVertically)
-            ) {
-                CoilImage(
+            with(sharedTransitionScope) {
+                Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(size = 8.dp))
                         .size(
                             height = 180.dp,
                             width = 120.dp
-                        ),
-                    imageModel = { book.imageUrl },
-                    imageOptions = ImageOptions(
-                        contentScale = ContentScale.Crop,
-                        alignment = Alignment.Center
-                    )
-                )
-                if (book.isFavorite) {
-                    Row(
-                        modifier = Modifier
-                            .padding(all = 6.dp)
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Star,
-                            contentDescription = "Star Icon",
-                            tint = Color.Yellow
                         )
+                        .padding(
+                            start = 12.dp,
+                            top = 12.dp,
+                            bottom = 12.dp
+                        )
+                        .align(Alignment.CenterVertically)
+                        .sharedElement(
+                            rememberSharedContentState(key = book.id.toString()),
+                            animatedContentScope
+                        )
+                ) {
+                    CoilImage(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(size = 8.dp))
+                            .size(
+                                height = 180.dp,
+                                width = 120.dp
+                            ),
+                        imageModel = { book.imageUrl },
+                        imageOptions = ImageOptions(
+                            contentScale = ContentScale.Crop,
+                            alignment = Alignment.Center
+                        )
+                    )
+                    if (book.isFavorite) {
+                        Row(
+                            modifier = Modifier
+                                .padding(all = 6.dp)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Star,
+                                contentDescription = "Star Icon",
+                                tint = Color.Yellow
+                            )
+                        }
                     }
                 }
             }

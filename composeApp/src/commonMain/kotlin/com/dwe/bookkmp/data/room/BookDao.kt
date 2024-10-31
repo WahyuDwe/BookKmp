@@ -36,6 +36,10 @@ interface BookDao {
     @Query("SELECT * FROM book ORDER BY id DESC")
     fun readAllBooks(): Flow<List<Book>>
 
+    @Transaction
+    @Query("SELECT * FROM book ORDER BY RANDOM()")
+    fun readAllBooksRandom(): Flow<List<Book>>
+
     @Query("UPDATE book SET isFavorite = :isFavorite WHERE id = :bookId")
     suspend fun setFavorite(isFavorite: Boolean, bookId: Int)
 

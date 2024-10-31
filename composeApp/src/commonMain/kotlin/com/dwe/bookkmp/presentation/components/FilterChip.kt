@@ -11,27 +11,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.dwe.bookkmp.presentation.screen.home.SortType
 
-@Composable
-fun BookFilterChip(
-    isSelected: Boolean,
-    text: String,
-    sortType: SortType,
-    onSelected: (SortType) -> Unit
-) {
-    FilterChip(
-        onClick = { onSelected(sortType) },
-        selected = isSelected,
-        label = { Text(text = text) },
-        leadingIcon = if (isSelected) {
-            {
-                Icon(
-                    modifier = Modifier.size(FilterChipDefaults.IconSize),
-                    imageVector = Icons.Rounded.Done,
-                    contentDescription = "Selected",
-                )
+    @Composable
+    fun BookFilterChip(
+        isSelected: Boolean,
+        text: String,
+        sortType: SortType,
+        onSelected: (SortType) -> Unit
+    ) {
+        FilterChip(
+            onClick = { onSelected(sortType) },
+            selected = isSelected,
+            label = { Text(text = text) },
+            leadingIcon = if (isSelected) {
+                {
+                    Icon(
+                        modifier = Modifier.size(FilterChipDefaults.IconSize),
+                        imageVector = Icons.Rounded.Done,
+                        contentDescription = "Selected",
+                    )
+                }
+            } else {
+                null
             }
-        } else {
-            null
-        }
-    )
-}
+        )
+    }

@@ -1,5 +1,8 @@
 package com.dwe.bookkmp.presentation.screen.details
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -41,11 +44,17 @@ import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
 import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalLayoutApi::class,
+    ExperimentalSharedTransitionApi::class
+)
 @Composable
 fun DetailsScreen(
     onBackClick: () -> Unit,
-    onEditClick: () -> Unit
+    onEditClick: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
 ) {
     val viewModel = koinViewModel<DetailsViewModel>()
     val book by viewModel.selectedBook
@@ -95,6 +104,7 @@ fun DetailsScreen(
             )
         }
     ) { padding ->
+        println("DetailsScreen: ${book?.id}")
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -104,23 +114,29 @@ fun DetailsScreen(
                 )
                 .verticalScroll(rememberScrollState()),
         ) {
-            Box(
-                modifier = Modifier
-                    .height(500.dp)
-                    .padding(vertical = 12.dp)
-                    .align(Alignment.CenterHorizontally)
-            ) {
-                CoilImage(
+            with(sharedTransitionScope) {
+                Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(size = 12.dp))
-                        .fillMaxHeight(),
-                    imageModel = { book?.imageUrl },
-                    imageOptions = ImageOptions(
-                        contentScale = ContentScale.Fit,
-                        alignment = Alignment.Center
-                    )
+                        .height(500.dp)
+                        .padding(vertical = 12.dp)
+                        .align(Alignment.CenterHorizontally)
+                        .sharedElement(
+                            rememberSharedContentState(key = book?.id.toString()),
+                            animatedContentScope
+                        )
+                ) {
+                    CoilImage(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(size = 12.dp))
+                            .fillMaxHeight(),
+                        imageModel = { book?.imageUrl },
+                        imageOptions = ImageOptions(
+                            contentScale = ContentScale.Fit,
+                            alignment = Alignment.Center
+                        )
 
-                )
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -157,7 +173,7 @@ fun DetailsScreen(
             ) {
                 book?.tags?.forEach { tag ->
                     SuggestionChip(
-                        onClick = {},
+                        onClick = { },
                         label = { Text(tag) }
                     )
                     Spacer(modifier = Modifier.width(6.dp))

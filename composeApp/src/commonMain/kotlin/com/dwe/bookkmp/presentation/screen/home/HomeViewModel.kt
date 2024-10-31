@@ -14,6 +14,7 @@ enum class SortType {
     NEWEST,
     TITLE,
     FAVORITE,
+    RANDOM
 }
 
 class HomeViewModel(private val db: BookDatabase) : ViewModel() {
@@ -50,6 +51,13 @@ class HomeViewModel(private val db: BookDatabase) : ViewModel() {
                         _books.value = RequestState.Success(it)
                     }
                 }
+
+                SortType.RANDOM -> {
+                    println("HomeViewModel.loadBooks: SortType.RANDOM")
+                    db.bookDao().readAllBooksRandom().collect {
+                        _books.value = RequestState.Success(it)
+                    }
+                }
             }
         }
     }
@@ -58,6 +66,5 @@ class HomeViewModel(private val db: BookDatabase) : ViewModel() {
         _sortType.value = sortType
         loadBooks()
     }
-
 
 }
