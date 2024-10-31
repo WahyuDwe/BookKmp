@@ -8,43 +8,56 @@ import androidx.lifecycle.viewModelScope
 import com.dwe.bookkmp.data.domain.Book
 import com.dwe.bookkmp.data.room.BookDatabase
 import com.dwe.bookkmp.utils.RequestState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+enum class SortType {
+    NEWEST,
+    TITLE,
+    FAVORITE,
+}
+
 class HomeViewModel(private val db: BookDatabase) : ViewModel() {
-    private var _sortedByFavorite = MutableStateFlow(false)
 
     private var _books: MutableState<RequestState<List<Book>>> =
         mutableStateOf(RequestState.Loading)
     val books: State<RequestState<List<Book>>> = _books
 
+    private var _sortType: MutableState<SortType> = mutableStateOf(SortType.NEWEST)
+    val sortType: State<SortType> = _sortType
+
     init {
+        loadBooks()
+    }
+
+    private fun loadBooks() {
         viewModelScope.launch {
-            _sortedByFavorite.collectLatest { favorite ->
-                if (favorite) {
-                    db.bookDao()
-                        .readAllBooksSortedByFavorite()
-                        .collectLatest { sortedBooks ->
-                            _books.value = RequestState.Success(
-                                data = sortedBooks.sortedBy { !it.isFavorite }
-                            )
-                        }
-                } else {
-                    db.bookDao()
-                        .readAllBooks()
-                        .collectLatest { allBooks ->
-                            _books.value = RequestState.Success(
-                                data = allBooks.sortedBy { it.isFavorite }
-                            )
-                        }
+            when (sortType.value) {
+                SortType.NEWEST -> {
+                    println("HomeViewModel.loadBooks: SortType.NEWEST")
+                    db.bookDao().readAllBooks().collect {
+                        _books.value = RequestState.Success(it)
+                    }
+                }
+                SortType.TITLE -> {
+                    println("HomeViewModel.loadBooks: SortType.TITLE")
+                    db.bookDao().readAllBooksSortedByTitle().collect {
+                        _books.value = RequestState.Success(it)
+                    }
+                }
+                SortType.FAVORITE -> {
+                    println("HomeViewModel.loadBooks: SortType.FAVORITE")
+                    db.bookDao().readAllBooksSortedByFavorite().collect {
+                        _books.value = RequestState.Success(it)
+                    }
                 }
             }
         }
     }
 
-    fun toggleSortByFavorite() {
-        _sortedByFavorite.value = !_sortedByFavorite.value
+    fun setSortType(sortType: SortType) {
+        _sortType.value = sortType
+        loadBooks()
     }
+
 
 }

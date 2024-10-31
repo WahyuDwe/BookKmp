@@ -33,7 +33,7 @@ interface BookDao {
     fun readAllBooksSortedByTitle(): Flow<List<Book>>
 
     @Transaction
-    @Query("SELECT * FROM book")
+    @Query("SELECT * FROM book ORDER BY id DESC")
     fun readAllBooks(): Flow<List<Book>>
 
     @Query("UPDATE book SET isFavorite = :isFavorite WHERE id = :bookId")
