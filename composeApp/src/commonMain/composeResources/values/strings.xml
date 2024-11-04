@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">ComposeApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="book_library">Book Library</string>
+</resources>
