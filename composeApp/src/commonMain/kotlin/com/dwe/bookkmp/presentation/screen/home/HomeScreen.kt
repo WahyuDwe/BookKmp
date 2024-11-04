@@ -26,14 +26,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import bookkmp.composeapp.generated.resources.Res
+import bookkmp.composeapp.generated.resources.book_library
+import bookkmp.composeapp.generated.resources.favorite
+import bookkmp.composeapp.generated.resources.latest
+import bookkmp.composeapp.generated.resources.name
+import bookkmp.composeapp.generated.resources.random
 import com.dwe.bookkmp.presentation.components.BookFilterChip
 import com.dwe.bookkmp.presentation.components.BookView
 import com.dwe.bookkmp.presentation.components.ErrorView
 import com.dwe.bookkmp.presentation.components.LoadingView
 import com.dwe.bookkmp.utils.DisPlayResult
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
+@OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalSharedTransitionApi::class
+)
 @Composable
 fun HomeScreen(
     onBookSelect: (Int) -> Unit,
@@ -44,10 +54,10 @@ fun HomeScreen(
     val viewModel = koinViewModel<HomeViewModel>()
     val books by viewModel.books
     val sortOption = listOf(
-        SortType.NEWEST to "New",
-        SortType.FAVORITE to "Favorite",
-        SortType.TITLE to "Name",
-        SortType.RANDOM to "Random"
+        SortType.NEWEST to stringResource(Res.string.latest),
+        SortType.FAVORITE to stringResource(Res.string.favorite),
+        SortType.TITLE to stringResource(Res.string.name),
+        SortType.RANDOM to stringResource(Res.string.random)
     )
 
     Scaffold(
@@ -59,7 +69,7 @@ fun HomeScreen(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Book Library")
+                        Text(text = stringResource(Res.string.book_library))
                         Spacer(modifier = Modifier.height(12.dp))
                         Row(
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),

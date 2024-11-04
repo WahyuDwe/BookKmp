@@ -3,4 +3,8 @@
     <string name="app_name">ComposeApp</string>
     <string name="hello_world">Hello world!</string>
     <string name="book_library">Book Library</string>
+    <string name="latest">Latest</string>
+    <string name="favorite">Favorite</string>
+    <string name="name">Name</string>
+    <string name="random">Random</string>
 </resources>
