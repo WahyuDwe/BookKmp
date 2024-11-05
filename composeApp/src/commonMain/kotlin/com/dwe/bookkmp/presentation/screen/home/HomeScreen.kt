@@ -13,16 +13,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExtendedFloatingActionButton
+
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -42,7 +46,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(
     ExperimentalMaterial3Api::class,
-    ExperimentalSharedTransitionApi::class
+    ExperimentalSharedTransitionApi::class,
 )
 @Composable
 fun HomeScreen(
@@ -59,6 +63,12 @@ fun HomeScreen(
         SortType.TITLE to stringResource(Res.string.name),
         SortType.RANDOM to stringResource(Res.string.random)
     )
+    val listState = rememberLazyListState()
+    val expandFAB by remember {
+        derivedStateOf {
+            listState.firstVisibleItemIndex == 0
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -86,18 +96,22 @@ fun HomeScreen(
                         }
                     }
                 },
-                expandedHeight = 85.dp
+                expandedHeight = 100.dp
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = onCreateClick
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.Add,
-                    contentDescription = "Add Icon"
-                )
-            }
+            println("HomeScreen: expandFAB: $expandFAB")
+            ExtendedFloatingActionButton(
+                onClick = onCreateClick,
+                expanded = expandFAB,
+                icon = {
+                    Icon(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = "Add"
+                    )
+                },
+                text = { Text(text = "Add Book") }
+            )
         }
     ) {
         books.DisPlayResult(
@@ -113,6 +127,7 @@ fun HomeScreen(
                                 top = 12.dp,
                             )
                             .padding(top = it.calculateTopPadding()),
+                        state = listState,
                         contentPadding = PaddingValues(bottom = 32.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
