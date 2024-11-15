@@ -19,14 +19,11 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
-
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -41,6 +38,7 @@ import com.dwe.bookkmp.presentation.components.BookView
 import com.dwe.bookkmp.presentation.components.ErrorView
 import com.dwe.bookkmp.presentation.components.LoadingView
 import com.dwe.bookkmp.utils.DisPlayResult
+import com.dwe.bookkmp.utils.isScrollingUp
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -64,11 +62,6 @@ fun HomeScreen(
         SortType.RANDOM to stringResource(Res.string.random)
     )
     val listState = rememberLazyListState()
-    val expandFAB by remember {
-        derivedStateOf {
-            listState.firstVisibleItemIndex == 0
-        }
-    }
 
     Scaffold(
         topBar = {
@@ -90,7 +83,9 @@ fun HomeScreen(
                                     isSelected = viewModel.sortType.value == sortType,
                                     text = text,
                                     sortType = sortType,
-                                    onSelected = { viewModel.setSortType(it) }
+                                    onSelected = {
+                                        viewModel.setSortType(it)
+                                    }
                                 )
                             }
                         }
@@ -100,10 +95,9 @@ fun HomeScreen(
             )
         },
         floatingActionButton = {
-            println("HomeScreen: expandFAB: $expandFAB")
             ExtendedFloatingActionButton(
                 onClick = onCreateClick,
-                expanded = expandFAB,
+                expanded = listState.isScrollingUp(),
                 icon = {
                     Icon(
                         imageVector = Icons.Rounded.Add,
